@@ -46,10 +46,10 @@ class UserController extends Controller
     {
         if($request->isMethod('put') && $request->has('id'))
         {
-            $fname = $request->input('first_name');
-            $lname = $request->input('last_name');
-            $email = $request->input('email');
-            $id = $request->input('id');
+            $fname = $request->input('First_Name');
+            $lname = $request->input('Last_Name');
+            $email = $request->input('Email');
+            $id = $request->input('Id');
             $results = app('db')->select("UPDATE users SET first_name = '$fname', last_name = '$lname', email = '$email' WHERE id = $id");
             $results = app('db')->select("SELECT * FROM users WHERE id = " . $id);
             return response()->json($results);
