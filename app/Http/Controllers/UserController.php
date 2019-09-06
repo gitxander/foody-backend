@@ -32,9 +32,9 @@ class UserController extends Controller
     {
         if($request->isMethod('post'))
         {
-            $fname = $request->input('first_name');
-            $lname = $request->input('last_name');
-            $email = $request->input('email');
+            $fname = $request->input('First_Name');
+            $lname = $request->input('Last_Name');
+            $email = $request->input('Email');
             app('db')->select("INSERT INTO users(first_name, last_name, email) VALUES ('$fname', '$lname', '$email') ");
             $id = DB::getPdo()->lastInsertId();
             $results = app('db')->select("SELECT * FROM users WHERE id = " . $id);
