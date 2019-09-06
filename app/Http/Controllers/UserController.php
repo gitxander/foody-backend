@@ -44,7 +44,7 @@ class UserController extends Controller
 
     public function edit(Request $request)
     {
-        if($request->isMethod('put') && $request->has('id'))
+        if($request->isMethod('put') && $request->has('Id'))
         {
             $fname = $request->input('First_Name');
             $lname = $request->input('Last_Name');
