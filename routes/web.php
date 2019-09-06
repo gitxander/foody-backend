@@ -27,4 +27,4 @@ $router->post('user', 'UserController@add');
 
 $router->put('user', 'UserController@edit');
 
-$router->delete('user', 'UserController@delete');
+$router->delete('user/{id}', 'UserController@delete');
