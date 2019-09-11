@@ -40,8 +40,8 @@ class FoodController extends Controller
             $image = $request->input('Image');
 
             app('db')->select("INSERT INTO
-                        foods(category_id, price, name, description, image)
-                        VALUES ('$category_id', '$price', '$name', '$description', '$image') ");
+                        foods(restaurant_id, category_id, price, name, description, image)
+                        VALUES ('$restaurant_id', '$category_id', '$price', '$name', '$description', '$image') ");
             $id = DB::getPdo()->lastInsertId();
             $results = app('db')->select("SELECT * FROM foods WHERE id = " . $id);
             return response()->json($results);
