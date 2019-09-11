@@ -63,6 +63,8 @@ $router->get('cart/{id}', 'CartController@get');
 
 $router->get('cart/order/{id}', 'CartController@getByOrderId');
 
+$router->post('cart', 'CartController@add');
+
 $router->put('cart', 'CartController@edit');
 
 $router->delete('cart/{id}', 'CartController@delete');
