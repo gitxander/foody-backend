@@ -77,7 +77,7 @@ class CartController extends Controller
             $checkout = $request->input('Checkout');
             $id = $request->input('Id');
             $results = app('db')->select(
-                "UPDATE restaurants SET
+                "UPDATE carts SET
                 order_id = '$order_id',
                 food_id = '$food_id',
                 user_id = '$user_id',
