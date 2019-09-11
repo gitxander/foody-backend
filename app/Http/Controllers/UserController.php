@@ -35,9 +35,29 @@ class UserController extends Controller
             $fname = $request->input('First_Name');
             $lname = $request->input('Last_Name');
             $email = $request->input('Email');
-            app('db')->select("INSERT INTO users(first_name, last_name, email) VALUES ('$fname', '$lname', '$email') ");
+            $password = $request->input('Password');
+            $phone = $request->input('Phone');
+            $unit = $request->input('Unit');
+            $street = $request->input('Street');
+            $suburb = $request->input('Suburb');
+            $state = $request->input('State');
+            $postcode = $request->input('Postcode');
+            app('db')->select("INSERT INTO
+                        users(first_name, last_name, email, password, phone, unit, street, suburb, state, postcode)
+                        VALUES ('$fname', '$lname', '$email', '$password', '$phone', '$unit', '$street', '$suburb', '$state', '$postcode') ");
             $id = DB::getPdo()->lastInsertId();
             $results = app('db')->select("SELECT * FROM users WHERE id = " . $id);
+            return response()->json($results);
+        }
+    }
+
+    public function login()
+    {
+        if($request->isMethod('post'))
+        {
+            $email = $request->input('Email');
+            $password = $request->input('Password');
+            $results = app('db')->select("SELECT * FROM users WHERE email = '$email' AND password ='$password' ");
             return response()->json($results);
         }
     }
