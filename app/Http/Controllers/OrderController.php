@@ -52,6 +52,11 @@ class OrderController extends Controller
                 checkout = '$checkout'
                 WHERE id = $id");
             $results = app('db')->select("SELECT * FROM orders WHERE id = " . $id);
+
+            $update_cart = app('db')->select(
+                "UPDATE carts SET
+                WHERE order_id = $id");
+
             return response()->json($results);
         }
     }
