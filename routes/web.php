@@ -42,3 +42,15 @@ $router->post('restaurants', 'RestaurantController@add');
 $router->put('restaurants', 'RestaurantController@edit');
 
 $router->delete('restaurants/{id}', 'RestaurantController@delete');
+
+/* == FOODS == */
+
+$router->get('foods', 'FoodController@index');
+
+$router->get('food/{id}', 'FoodController@get');
+
+$router->post('food', 'FoodController@add');
+
+$router->put('food', 'FoodController@edit');
+
+$router->delete('food/{id}', 'FoodController@delete');
