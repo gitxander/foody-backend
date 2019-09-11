@@ -51,7 +51,7 @@ class UserController extends Controller
         }
     }
 
-    public function login()
+    public function login(Request $request)
     {
         if($request->isMethod('post'))
         {
