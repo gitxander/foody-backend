@@ -67,7 +67,7 @@ class CartController extends Controller
 
     public function edit(Request $request)
     {
-        if($request->isMethod('put') && $request->has('Id'))
+        if($request->isMethod('put') && $request->has('Order_Id') && $request->has('Id'))
         {
             $order_id = $request->input('Order_Id');
             $food_id= $request->input('Food_Id');
