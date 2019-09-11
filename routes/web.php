@@ -35,13 +35,13 @@ $router->delete('user/{id}', 'UserController@delete');
 
 $router->get('restaurants', 'RestaurantController@index');
 
-$router->get('restaurants/{id}', 'RestaurantController@get');
+$router->get('restaurant/{id}', 'RestaurantController@get');
 
-$router->post('restaurants', 'RestaurantController@add');
+$router->post('restaurant', 'RestaurantController@add');
 
-$router->put('restaurants', 'RestaurantController@edit');
+$router->put('restaurant', 'RestaurantController@edit');
 
-$router->delete('restaurants/{id}', 'RestaurantController@delete');
+$router->delete('restaurant/{id}', 'RestaurantController@delete');
 
 /* == FOODS == */
 
