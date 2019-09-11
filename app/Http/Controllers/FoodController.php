@@ -60,7 +60,7 @@ class FoodController extends Controller
             $image = $request->input('Image');
             $id = $request->input('Id');
             $results = app('db')->select(
-                "UPDATE restaurants SET
+                "UPDATE foods SET
                 name = '$name',
                 description = '$description',
                 restaurant_id = '$restaurant_id',
