@@ -83,7 +83,7 @@ class CartController extends Controller
                 user_id = '$user_id',
                 quantity = '$quantity',
                 total = '$total',
-                checkout = '$checkout',
+                checkout = '$checkout'
                 WHERE id = $id");
             $results = app('db')->select("SELECT * FROM carts WHERE id = " . $id);
             return response()->json($results);
