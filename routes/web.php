@@ -61,8 +61,20 @@ $router->get('carts', 'CartController@index');
 
 $router->get('cart/{id}', 'CartController@get');
 
-$router->post('cart', 'CartController@add');
+$router->get('cart/order/{id}', 'CartController@getByOrderId');
 
 $router->put('cart', 'CartController@edit');
 
 $router->delete('cart/{id}', 'CartController@delete');
+
+/* == ORDERS == */
+
+$router->get('orders', 'OrderController@index');
+
+$router->get('order/{id}', 'OrderController@get');
+
+$router->get('order/user/{userid}', 'OrderController@getByUserId');
+
+$router->put('order', 'OrderController@edit');
+
+$router->delete('order/{id}', 'OrderController@delete');
