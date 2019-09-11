@@ -54,3 +54,15 @@ $router->post('food', 'FoodController@add');
 $router->put('food', 'FoodController@edit');
 
 $router->delete('food/{id}', 'FoodController@delete');
+
+/* == CARTS == */
+
+$router->get('carts', 'CartController@index');
+
+$router->get('cart/{id}', 'CartController@get');
+
+$router->post('cart', 'CartController@add');
+
+$router->put('cart', 'CartController@edit');
+
+$router->delete('cart/{id}', 'CartController@delete');
