@@ -30,3 +30,15 @@ $router->post('user/login', 'UserController@login');
 $router->put('user', 'UserController@edit');
 
 $router->delete('user/{id}', 'UserController@delete');
+
+/* == RESTAURANTS == */
+
+$router->get('restaurants', 'RestaurantController@index');
+
+$router->get('restaurants/{id}', 'RestaurantController@get');
+
+$router->post('restaurants', 'RestaurantController@add');
+
+$router->put('restaurants', 'RestaurantController@edit');
+
+$router->delete('restaurants/{id}', 'RestaurantController@delete');
