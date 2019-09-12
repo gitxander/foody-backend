@@ -38,57 +38,37 @@ class CartController extends Controller
     {
         if($request->isMethod('post'))
         {
-            $order_id = $request->input('Order_Id');
             $food_id= $request->input('Food_Id');
             $user_id = $request->input('User_Id');
             $quantity = $request->input('Quantity');
-            $total = $request->input('Total');
-            $checkout = $request->input('Checkout');
 
             $existingFood = false;
             $cart_id = null;
 
-            /* NO EXISTING ORDER_ID */
-            if($order_id == null)
-            {
-                /* CHECK FIRST IF ORDER_ID WAS JUST FORGOTTEN */
-                $check = app('db')->select("SELECT * FROM carts WHERE carts.checkout = 0 AND carts.user_id = " . $user_id ." LIMIT 1");
-                //print_r($check);
+            /* CHECK FIRST IF THERE IS EXISTING ORDER */
+            $check = app('db')->select("SELECT * FROM carts WHERE carts.checkout = 0 AND carts.user_id = " . $user_id ." LIMIT 1");
+            //print_r($check);
 
-                /* IF THERE IS EXISTING PENDING CART */
-                if(count($check) == 1) {
-                    $order_id = $check['order_id'];
-                    $cart_id = $check[0]->id;
+            /* IF THERE IS EXISTING PENDING CART */
+            if(count($check) == 1) {
+                $order_id = $check[0]->order_id;
+                $cart_id = $check[0]->id;
 
-                    /* IF ADDING THE SAME FOOD, JUST UPDATE THE QUANTITY AND TOTAL */
-                    if($check[0]->food_id == $food_id)
-                    {
-                        $existingFood = true;
-                        $quantity++;
+                /* IF ADDING THE SAME FOOD, JUST UPDATE THE QUANTITY AND TOTAL */
+                if($check[0]->food_id == $food_id)
+                {
+                    $existingFood = true;
+                    $quantity += $check[0]->quantity;
 
-                        $food = app('db')->select("SELECT * FROM foods WHERE foods.id = $food_id");
-                        $total = $quantity * $food['price'];
-                    }
-
-                } else {
-                    app('db')->select("INSERT INTO
-                                orders(user_id, total, checkout)
-                                VALUES ('$user_id', '0', '0') ");
-                    $order_id = DB::getPdo()->lastInsertId();
+                    $food = app('db')->select("SELECT * FROM foods WHERE foods.id = $food_id");
+                    $total = $quantity * $food[0]->price;
                 }
 
             } else {
-                /* CHECK IF FOOD IS ALREADY EXISTING IN CART */
-                $checkFoodInCart = app('db')->select("SELECT * FROM carts WHERE carts.food_id = $food_id AND carts.checkout = 0 AND carts.user_id = " . $user_id ." LIMIT 1");
-                if(count($checkFoodInCart))
-                {
-                    $existingFood = true;
-                    $quantity++;
-
-                    $food = app('db')->select("SELECT * FROM foods WHERE foods.id = $food_id");
-                    $total = $quantity * $food['price'];
-                }
-
+                app('db')->select("INSERT INTO
+                            orders(user_id, total, checkout)
+                            VALUES ('$user_id', '0', '0') ");
+                $order_id = DB::getPdo()->lastInsertId();
             }
 
             /* IF ADDING THE SAME FOOD, JUST UPDATE THE QUANTITY AND TOTAL */
@@ -97,14 +77,14 @@ class CartController extends Controller
                 $results = app('db')->select(
                     "UPDATE carts SET
                     quantity = '$quantity',
-                    total = '$total',
+                    total = '$total'
                     WHERE id = $cart_id");
             }
             else
             {
                 app('db')->select("INSERT INTO
                             carts(order_id, food_id, user_id, quantity, total, checkout)
-                            VALUES ('$order_id', '$food_id', '$user_id', '$quantity', '$total', '$checkout') ");
+                            VALUES ('$order_id', '$food_id', '$user_id', '$quantity', '$total', 0) ");
                 $cart_id = DB::getPdo()->lastInsertId();
             }
 
