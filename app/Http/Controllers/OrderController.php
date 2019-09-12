@@ -95,6 +95,8 @@ class OrderController extends Controller
                 checkout = 1
                 WHERE id = $order_id");
 
+            $results = app('db')->select("SELECT * FROM orders WHERE id = " . $order_id);
+
             return response()->json($results);
         }
     }
