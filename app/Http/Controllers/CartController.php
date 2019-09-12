@@ -58,7 +58,7 @@ class CartController extends Controller
                 /* IF THERE IS EXISTING PENDING CART */
                 if($check == 1) {
                     $order_id = $check['order_id'];
-                    $cart_id = $check[0]['id'];
+                    $cart_id = $check[0]->id;
                 } else {
                     app('db')->select("INSERT INTO
                                 orders(user_id, total, checkout)
@@ -67,7 +67,7 @@ class CartController extends Controller
                 }
 
                 /* IF ADDING THE SAME FOOD, JUST UPDATE THE QUANTITY AND TOTAL */
-                if($check[0]['food_id'] == $food_id)
+                if($check[0]->food_id == $food_id)
                 {
                     $existingFood = true;
                     $quantity++;
@@ -95,7 +95,7 @@ class CartController extends Controller
 
             /* THEN ORDER_ID WILL ALSO BE RETURNED ON THE RESPONSE AND SHOULD BE ADDED ON THE FORM */
             $results = app('db')->select("SELECT * FROM carts WHERE id = " . $cart_id);
-            return response()->json($check);
+            return response()->json($results);
         }
     }
 
