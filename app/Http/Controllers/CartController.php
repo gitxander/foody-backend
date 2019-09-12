@@ -30,13 +30,13 @@ class CartController extends Controller
 
     public function getByUserId(Request $request, $id)
     {
-        $results = app('db')->select("SELECT * FROM carts,foods WHERE carts.food_id = foods.food_id AND carts.quantity > 0  AND user_id = $id");
+        $results = app('db')->select("SELECT * FROM carts,foods WHERE carts.food_id = foods.id AND carts.quantity > 0  AND carts.user_id = $id");
         return response()->json($results);
     }
 
     public function getByOrderId(Request $request, $id)
     {
-        $results = app('db')->select("SELECT * FROM carts,foods WHERE carts.food_id = foods.food_id AND carts.quantity > 0 AND order_id = $id");
+        $results = app('db')->select("SELECT * FROM carts,foods WHERE carts.food_id = foods.id AND carts.quantity > 0 AND carts.order_id = $id");
         return response()->json($results);
     }
 
