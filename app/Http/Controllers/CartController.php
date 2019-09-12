@@ -28,13 +28,19 @@ class CartController extends Controller
         return response()->json($results);
     }
 
-    public function getByOrderId(Request $request, $id)
+    public function getByUserId(Request $request, $id)
     {
-        $results = app('db')->select("SELECT * FROM carts,foods WHERE carts.food_id = foods.food_id AND order_id = " . $id);
+        $results = app('db')->select("SELECT * FROM carts,foods WHERE carts.food_id = foods.food_id AND carts.quantity > 0  AND user_id = $id");
         return response()->json($results);
     }
 
-    public function add(Request $request)
+    public function getByOrderId(Request $request, $id)
+    {
+        $results = app('db')->select("SELECT * FROM carts,foods WHERE carts.food_id = foods.food_id AND carts.quantity > 0 AND order_id = $id");
+        return response()->json($results);
+    }
+
+    public function edit(Request $request)
     {
         if($request->isMethod('post'))
         {
@@ -78,6 +84,8 @@ class CartController extends Controller
                 $order_id = DB::getPdo()->lastInsertId();
             }
 
+            if($quantity < 0) $quantity = 0;
+
             $total = $quantity * $food[0]->price;
 
             /* IF ADDING THE SAME FOOD, JUST UPDATE THE QUANTITY AND TOTAL */
@@ -99,31 +107,6 @@ class CartController extends Controller
 
             /* THEN ORDER_ID WILL ALSO BE RETURNED ON THE RESPONSE AND SHOULD BE ADDED ON THE FORM */
             $results = app('db')->select("SELECT * FROM carts WHERE id = " . $cart_id);
-            return response()->json($results);
-        }
-    }
-
-    public function edit(Request $request)
-    {
-        if($request->isMethod('put') && $request->has('Order_Id') && $request->has('Id'))
-        {
-            $order_id = $request->input('Order_Id');
-            $food_id= $request->input('Food_Id');
-            $user_id = $request->input('User_Id');
-            $quantity = $request->input('Quantity');
-            $total = $request->input('Total');
-            $checkout = $request->input('Checkout');
-            $id = $request->input('Id');
-            $results = app('db')->select(
-                "UPDATE carts SET
-                order_id = '$order_id',
-                food_id = '$food_id',
-                user_id = '$user_id',
-                quantity = '$quantity',
-                total = '$total',
-                checkout = '$checkout'
-                WHERE id = $id");
-            $results = app('db')->select("SELECT * FROM carts WHERE id = " . $id);
             return response()->json($results);
         }
     }
