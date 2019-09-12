@@ -33,7 +33,7 @@ $router->delete('user/{id}', 'UserController@delete');
 
 /* == RESTAURANTS == */
 
-$router->get('restaurants', 'RestaurantController@index');
+$router->get('restaurant', 'RestaurantController@index');
 
 $router->get('restaurant/{id}', 'RestaurantController@get');
 
@@ -45,7 +45,7 @@ $router->delete('restaurant/{id}', 'RestaurantController@delete');
 
 /* == FOODS == */
 
-$router->get('foods', 'FoodController@index');
+$router->get('food', 'FoodController@index');
 
 $router->get('food/{id}', 'FoodController@get');
 
@@ -57,7 +57,7 @@ $router->delete('food/{id}', 'FoodController@delete');
 
 /* == CARTS == */
 
-$router->get('carts', 'CartController@index');
+$router->get('cart', 'CartController@index');
 
 $router->get('cart/{id}', 'CartController@get');
 
@@ -71,7 +71,7 @@ $router->delete('cart/{id}', 'CartController@delete');
 
 /* == ORDERS == */
 
-$router->get('orders', 'OrderController@index');
+$router->get('order', 'OrderController@index');
 
 $router->get('order/{id}', 'OrderController@get');
 
