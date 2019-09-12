@@ -71,7 +71,7 @@ class CartController extends Controller
                 {
                     $existingFood = true;
                     $quantity++;
-                    $total = $quantity * $check[0]['price'];
+                    $total = $quantity * $check[0]->price;
                 }
 
             }
