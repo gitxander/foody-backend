@@ -94,7 +94,7 @@ class CartController extends Controller
 
             /* THEN ORDER_ID WILL ALSO BE RETURNED ON THE RESPONSE AND SHOULD BE ADDED ON THE FORM */
             $results = app('db')->select("SELECT * FROM carts WHERE id = " . $cart_id);
-            return response()->json($results);
+            return response()->json($check);
         }
     }
 
