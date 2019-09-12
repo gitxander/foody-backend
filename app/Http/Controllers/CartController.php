@@ -67,7 +67,7 @@ class CartController extends Controller
                 }
 
                 /* IF ADDING THE SAME FOOD, JUST UPDATE THE QUANTITY AND TOTAL */
-                if($check['food_id'] == $food_id)
+                if($check[0]['food_id'] == $food_id)
                 {
                     $existingFood = true;
                     $quantity++;
