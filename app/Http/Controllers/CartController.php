@@ -52,7 +52,7 @@ class CartController extends Controller
             $food = app('db')->select("SELECT * FROM foods WHERE foods.id = $food_id");
             if(count($food) == 0)
             {
-                return response()->json($array('error'=>'food doesn\'t exists!'));
+                return response()->json(array('error'=>'food doesn\'t exists!'));
             }
 
             /* IF THERE IS EXISTING PENDING CART */
@@ -60,8 +60,11 @@ class CartController extends Controller
                 $order_id = $check[0]->order_id;
                 $cart_id = $check[0]->id;
 
+                /* CHECK FIRST IF SAME FOODS */
+                $checkFood = app('db')->select("SELECT * FROM carts WHERE carts.order_id = $order_id AND carts.food_id = $food_id);
+
                 /* IF ADDING THE SAME FOOD, JUST UPDATE THE QUANTITY AND TOTAL */
-                if($check[0]->food_id == $food_id)
+                if(count($checkFood) == 1)
                 {
                     $existingFood = true;
                     $quantity += $check[0]->quantity;
