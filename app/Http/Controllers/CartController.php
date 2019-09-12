@@ -61,13 +61,14 @@ class CartController extends Controller
                 $cart_id = $check[0]->id;
 
                 /* CHECK FIRST IF SAME FOODS */
-                $checkFood = app('db')->select("SELECT * FROM carts WHERE carts.order_id = $order_id AND carts.food_id = $food_id);
+                $checkFood = app('db')->select("SELECT * FROM carts WHERE carts.order_id = $order_id AND carts.food_id = $food_id");
 
                 /* IF ADDING THE SAME FOOD, JUST UPDATE THE QUANTITY AND TOTAL */
                 if(count($checkFood) == 1)
                 {
                     $existingFood = true;
-                    $quantity += $check[0]->quantity;
+                    $quantity += $checkFood[0]->quantity;
+                    $cart_id = $checkFood[0]->id;
                 }
 
             } else {
