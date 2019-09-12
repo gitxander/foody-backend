@@ -77,6 +77,6 @@ $router->get('order/{id}', 'OrderController@get');
 
 $router->get('order/user/{userid}', 'OrderController@getByUserId');
 
-$router->put('order', 'OrderController@edit');
+$router->put('order', 'OrderController@checkout');
 
 $router->delete('order/{id}', 'OrderController@delete');
