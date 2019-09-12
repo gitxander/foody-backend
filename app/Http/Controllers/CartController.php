@@ -73,7 +73,7 @@ class CartController extends Controller
                     $quantity++;
 
                     $food = app('db')->select("SELECT * FROM foods WHERE foods.id = $food_id");
-                    $total = $quantity * $food->price;
+                    $total = $quantity * $food['price'];
                 }
 
             }
