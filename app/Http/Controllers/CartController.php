@@ -49,6 +49,12 @@ class CartController extends Controller
             $check = app('db')->select("SELECT * FROM carts WHERE carts.checkout = 0 AND carts.user_id = " . $user_id ." LIMIT 1");
             //print_r($check);
 
+            $food = app('db')->select("SELECT * FROM foods WHERE foods.id = $food_id");
+            if(count($food) == 0)
+            {
+                return response()->json($array('error'=>'food doesn\'t exists!'));
+            }
+
             /* IF THERE IS EXISTING PENDING CART */
             if(count($check) == 1) {
                 $order_id = $check[0]->order_id;
@@ -59,9 +65,6 @@ class CartController extends Controller
                 {
                     $existingFood = true;
                     $quantity += $check[0]->quantity;
-
-                    $food = app('db')->select("SELECT * FROM foods WHERE foods.id = $food_id");
-                    $total = $quantity * $food[0]->price;
                 }
 
             } else {
@@ -70,6 +73,8 @@ class CartController extends Controller
                             VALUES ('$user_id', '0', '0') ");
                 $order_id = DB::getPdo()->lastInsertId();
             }
+
+            $total = $quantity * $food[0]->price;
 
             /* IF ADDING THE SAME FOOD, JUST UPDATE THE QUANTITY AND TOTAL */
             if($existingFood)
