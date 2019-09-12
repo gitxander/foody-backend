@@ -53,6 +53,7 @@ class CartController extends Controller
             {
                 /* CHECK FIRST IF ORDER_ID WAS JUST FORGOTTEN */
                 $check = app('db')->select("SELECT * FROM carts WHERE carts.checkout = 0 AND carts.user_id = " . $user_id);
+                print_r($check);
 
                 /* IF THERE IS EXISTING PENDING CART */
                 if($check == 1) {
