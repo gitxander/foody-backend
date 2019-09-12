@@ -53,12 +53,12 @@ class CartController extends Controller
             {
                 /* CHECK FIRST IF ORDER_ID WAS JUST FORGOTTEN */
                 $check = app('db')->select("SELECT * FROM carts WHERE carts.checkout = 0 AND carts.user_id = " . $user_id ." LIMIT 1");
-                print_r($check);
+                //print_r($check);
 
                 /* IF THERE IS EXISTING PENDING CART */
                 if($check == 1) {
                     $order_id = $check['order_id'];
-                    $cart_id = $check['id'];
+                    $cart_id = $check[0]['id'];
                 } else {
                     app('db')->select("INSERT INTO
                                 orders(user_id, total, checkout)
@@ -71,7 +71,7 @@ class CartController extends Controller
                 {
                     $existingFood = true;
                     $quantity++;
-                    $total = $quantity * $check['price'];
+                    $total = $quantity * $check[0]['price'];
                 }
 
             }
