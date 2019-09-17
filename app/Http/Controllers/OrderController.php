@@ -40,9 +40,9 @@ class OrderController extends Controller
         if($request->has('checkout'))
         {
             $out = $request->input('checkout') == 1 ? 1 : 0;
-            $checkout = "orders.checkout = $out";
+            $checkout = " AND orders.checkout = $out";
         }
-        $results = app('db')->select("SELECT * FROM orders WHERE 1=1 AND $checkout orders.user_id = " . $id);
+        $results = app('db')->select("SELECT * FROM orders WHERE 1=1 $checkout AND orders.user_id = " . $id);
         return response()->json($results);
     }
 
