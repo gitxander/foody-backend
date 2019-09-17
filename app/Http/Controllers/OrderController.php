@@ -22,7 +22,7 @@ class OrderController extends Controller
         if($request->has('checkout'))
         {
             $out = $request->input('checkout') == 1 ? 1 : 0;
-            $checkout = " AND carts.checkout = $out";
+            $checkout = " AND orders.checkout = $out";
         }
         $results = app('db')->select("SELECT * FROM orders WHERE 1=1 $checkout");
         return response()->json($results);
@@ -40,7 +40,7 @@ class OrderController extends Controller
         if($request->has('checkout'))
         {
             $out = $request->input('checkout') == 1 ? 1 : 0;
-            $checkout = " WHERE carts.checkout = $out";
+            $checkout = " WHERE orders.checkout = $out";
         }
         $results = app('db')->select("SELECT * FROM orders WHERE orders.checkout = 1 AND $checkout orders.user_id = " . $id);
         return response()->json($results);
