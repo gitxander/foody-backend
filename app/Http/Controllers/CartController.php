@@ -18,7 +18,13 @@ class CartController extends Controller
 
     public function index()
     {
-        $results = app('db')->select("SELECT * FROM carts");
+        $checkout = "";
+        if($request->has('checkout'))
+        {
+            $out = $request->input('checkout') == 1 ? 1 : 0;
+            $checkout = " WHERE carts.checkout = $out";
+        }
+        $results = app('db')->select("SELECT * FROM carts $checkout");
         return response()->json($results);
     }
 
@@ -30,13 +36,25 @@ class CartController extends Controller
 
     public function getByUserId(Request $request, $id)
     {
-        $results = app('db')->select("SELECT * FROM carts,foods WHERE carts.food_id = foods.id AND carts.quantity > 0  AND carts.user_id = $id");
+        $checkout = "";
+        if($request->has('checkout'))
+        {
+            $out = $request->input('checkout') == 1 ? 1 : 0;
+            $checkout = " AND carts.checkout = $out";
+        }
+        $results = app('db')->select("SELECT * FROM carts,foods WHERE carts.food_id = foods.id AND carts.quantity > 0  AND carts.user_id = $id $checkout");
         return response()->json($results);
     }
 
     public function getByOrderId(Request $request, $id)
     {
-        $results = app('db')->select("SELECT * FROM carts,foods WHERE carts.food_id = foods.id AND carts.quantity > 0 AND carts.order_id = $id");
+        $checkout = "";
+        if($request->has('checkout'))
+        {
+            $out = $request->input('checkout') == 1 ? 1 : 0;
+            $checkout = " WHERE carts.checkout = $out";
+        }
+        $results = app('db')->select("SELECT * FROM carts,foods WHERE carts.food_id = foods.id AND carts.quantity > 0 AND carts.order_id = $id $checkout");
         return response()->json($results);
     }
 
