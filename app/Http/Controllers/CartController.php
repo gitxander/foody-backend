@@ -16,7 +16,7 @@ class CartController extends Controller
         //
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $checkout = "";
         if($request->has('checkout'))
