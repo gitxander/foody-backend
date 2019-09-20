@@ -69,8 +69,27 @@ class UserController extends Controller
             $fname = $request->input('First_Name');
             $lname = $request->input('Last_Name');
             $email = $request->input('Email');
+            $password = $request->input('Password');
+            $phone = $request->input('Phone');
+            $unit = $request->input('Unit');
+            $street = $request->input('Street');
+            $suburb = $request->input('Suburb');
+            $state = $request->input('State');
+            $postcode = $request->input('Postcode');
             $id = $request->input('Id');
-            $results = app('db')->select("UPDATE users SET first_name = '$fname', last_name = '$lname', email = '$email' WHERE id = $id");
+            $results = app('db')->select(
+                "UPDATE users SET
+                first_name = '$fname',
+                last_name = '$lname',
+                email = '$email',
+                password = '$password',
+                phone = '$phone',
+                unit = '$unit',
+                street = '$street',
+                suburb = '$suburb',
+                state = '$state',
+                postcode = '$postcode',
+            WHERE id = $id");
             $results = app('db')->select("SELECT * FROM users WHERE id = " . $id);
             return response()->json($results);
         }
