@@ -25,6 +25,8 @@ $router->get('user/{id}', 'UserController@get');
 
 $router->post('user', 'UserController@add');
 
+$router->post('user/email', 'UserController@email');
+
 $router->post('user/login', 'UserController@login');
 
 $router->put('user', 'UserController@edit');

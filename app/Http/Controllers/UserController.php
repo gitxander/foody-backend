@@ -62,6 +62,16 @@ class UserController extends Controller
         }
     }
 
+    public function email(Request $request)
+    {
+        if($request->isMethod('post'))
+        {
+            $email = $request->input('Email');
+            $results = app('db')->select("SELECT * FROM users WHERE email = '$email' ");
+            return response()->json($results);
+        }
+    }
+
     public function edit(Request $request)
     {
         if($request->isMethod('put') && $request->has('Id'))
