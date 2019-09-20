@@ -28,6 +28,12 @@ class FoodController extends Controller
         return response()->json($results);
     }
 
+    public function getByRestaurantId(Request $request, $id)
+    {
+        $results = app('db')->select("SELECT * FROM foods WHERE restaurant_id = " . $id);
+        return response()->json($results);
+    }
+
     public function add(Request $request)
     {
         if($request->isMethod('post'))

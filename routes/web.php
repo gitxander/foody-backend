@@ -51,6 +51,8 @@ $router->get('food', 'FoodController@index');
 
 $router->get('food/{id}', 'FoodController@get');
 
+$router->get('food/restaurant/{id}', 'FoodController@getByRestaurantId');
+
 $router->post('food', 'FoodController@add');
 
 $router->put('food', 'FoodController@edit');
