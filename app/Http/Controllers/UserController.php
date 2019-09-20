@@ -98,7 +98,7 @@ class UserController extends Controller
                 street = '$street',
                 suburb = '$suburb',
                 state = '$state',
-                postcode = '$postcode',
+                postcode = '$postcode'
             WHERE id = $id");
             $results = app('db')->select("SELECT * FROM users WHERE id = " . $id);
             return response()->json($results);
